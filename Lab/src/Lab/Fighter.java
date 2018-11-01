@@ -1,3 +1,4 @@
+package Lab;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Graphics;
@@ -13,11 +14,7 @@ import java.awt.event.ActionListener;
 import java.util.Random;
 import java.awt.event.ActionEvent;
 
-
-
-
 public class Fighter {
-
 
 	public enum Direction
 	{
@@ -75,7 +72,6 @@ public class Fighter {
 	void getBackSpoiler(boolean BackSpoiler) {this.BackSpoiler=BackSpoiler;}
 	boolean setBackSpoiler() {return this.BackSpoiler;}
 
-
 	public Fighter(int maxSpeed, int weight, Color mainColor, Color dopColor, boolean
 			frontSpoiler, boolean middleSpoiler, boolean backSpoiler)
 	{
@@ -87,13 +83,7 @@ public class Fighter {
 		FrontSpoiler = frontSpoiler;
 		BackSpoiler = backSpoiler;
 	}
-	/// <summary>
-	/// Установка позиции
-	/// </summary>
-	/// <param name="x">Координата X</param>
-	/// <param name="y">Координата Y</param>
-	/// <param name="width">Ширина картинки</param>
-	/// <param name="height">Высота картинки</param>
+	
 	public void SetPosition(int x, int y, int width, int height)
 	{
 		_startPosX = x;
@@ -101,10 +91,7 @@ public class Fighter {
 		_pictureWidth = width;
 		_pictureHeight = height;
 	}
-	/// <summary>
-	/// Изменение направления пермещения
-	/// </summary>
-	/// <param name="direction">Направление</param>
+	
 	public void MoveTransport(Direction direction)
 	{
 		float step = MaxSpeed * 100 / Weight;
@@ -141,18 +128,12 @@ public class Fighter {
 		}
 	}
 	/// <summary>
-	/// Отрисовка автомобиля
+	/// Отрисовка
 	/// </summary>
 	/// <param name="g"></param>
 	public void DrawCar(Graphics gr)
 	{
-		//Pen pen_18 = new Pen(DopColor, 16);
-		//Pen pen_8 = new Pen(DopColor, 8);
-		//Pen pen_5 = new Pen(DopColor, 5);
-		//Pen pen_9 = new Pen(MainColor, 10);
-		//Pen pen_6 = new Pen(MainColor, 6);
-		//Pen pen_3 = new Pen(MainColor, 3);
-		//Brush spoiler = new SolidBrush(Color.BLACK);
+		
 		Graphics2D g = (Graphics2D)gr;
 		Stroke oldStroke = g.getStroke();
 		float[] shtrich = {14, 5};
@@ -191,13 +172,4 @@ public class Fighter {
 			g.drawLine( _startPosX + 100, _startPosY, _startPosX + 110, _startPosY);
 		}
 	}
-
-
-	/**
-	 * Initialize the contents of the frame.
-	 */
-
-
-
-
 }
