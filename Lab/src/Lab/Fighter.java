@@ -52,28 +52,28 @@ public class Fighter {
 	void getDopColor(Color DopColor) {this.DopColor=DopColor;}
 	Color setDopColorr() {return this.DopColor;}
 
-	private boolean FrontSpoiler;
-	void getFrontSpoiler(boolean FrontSpoiler) {this.FrontSpoiler=FrontSpoiler;}
-	boolean setFrontSpoilert() {return this.FrontSpoiler;}
+	private boolean FrontWing;
+	void getFrontWing(boolean FrontWing) {this.FrontWing=FrontWing;}
+	boolean setFrontWingt() {return this.FrontWing;}
 
-	private boolean MiddleSpoiler;
-	void getMiddleSpoiler(boolean MiddleSpoiler) {this.MiddleSpoiler=MiddleSpoiler;}
-	boolean setMiddleSpoilert() {return this.MiddleSpoiler;}
+	private boolean MiddleWing;
+	void getMiddleWing(boolean MiddleWing) {this.MiddleWing=MiddleWing;}
+	boolean setMiddleWingt() {return this.MiddleWing;}
 
-	private boolean BackSpoiler;
-	void getBackSpoiler(boolean BackSpoiler) {this.BackSpoiler=BackSpoiler;}
-	boolean setBackSpoiler() {return this.BackSpoiler;}
+	private boolean BackWing;
+	void getBackWing(boolean BackWing) {this.BackWing=BackWing;}
+	boolean setBackWing() {return this.BackWing;}
 
 	public Fighter(int maxSpeed, int weight, Color mainColor, Color dopColor, boolean
-			frontSpoiler, boolean middleSpoiler, boolean backSpoiler)
+			frontWing, boolean middleWing, boolean backWing)
 	{
 		MaxSpeed = maxSpeed;
 		Weight = weight;
 		MainColor = mainColor;
 		DopColor = dopColor;
-		MiddleSpoiler = middleSpoiler;
-		FrontSpoiler = frontSpoiler;
-		BackSpoiler = backSpoiler;
+		MiddleWing = middleWing;
+		FrontWing = frontWing;
+		BackWing = backWing;
 	}
 	
 	public void SetPosition(int x, int y, int width, int height)
@@ -132,7 +132,7 @@ public class Fighter {
 		BasicStroke bs = new BasicStroke(8, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 3, shtrich, 0);
 		g.setStroke(bs);
 
-		if (BackSpoiler)
+		if (BackWing)
 		{
 			g.setColor(MainColor);
 			g.drawLine( _startPosX + 31, _startPosY - 24, _startPosX + 31, _startPosY + 24);
@@ -142,7 +142,7 @@ public class Fighter {
 			g.drawLine( _startPosX + 4, _startPosY + 5, _startPosX, _startPosY + 20);
 			g.drawLine( _startPosX + 14, _startPosY + 5, _startPosX, _startPosY + 20);
 		}
-		if (MiddleSpoiler)
+		if (MiddleWing)
 		{
 			g.setColor(DopColor);
 			g.drawLine( _startPosX + 24, _startPosY - 5, _startPosX + 22, _startPosY - 50);
@@ -158,7 +158,7 @@ public class Fighter {
 		g.setColor(MainColor);
 		g.drawLine( _startPosX + 79, _startPosY - 3, _startPosX + 100, _startPosY);
 		g.drawLine( _startPosX + 79, _startPosY + 3, _startPosX + 100, _startPosY);
-		if (FrontSpoiler)
+		if (FrontWing)
 		{
 			g.setColor(DopColor);
 			g.drawLine( _startPosX + 100, _startPosY, _startPosX + 110, _startPosY);
