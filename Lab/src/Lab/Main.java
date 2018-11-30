@@ -1,7 +1,6 @@
 package Lab;
 import java.awt.Button;
 
-
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
@@ -14,7 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-
+import Lab2.IAircraft;
 
 public class Main {
 
@@ -38,7 +37,7 @@ public class Main {
 		initialize();
 	}
 	
-	Fighter fighter;
+	private IAircraft fighter;
 	private JPanel panel;
 	private JButton buttonLeft;
 
@@ -51,11 +50,11 @@ public class Main {
 		frame.getContentPane().setLayout(null);
 
 
-		Button button = new Button("Create");
-		button.addActionListener(new ActionListener() {
+		Button buttonFighter = new Button("Set fighter");
+		buttonFighter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Random rnd = new Random();
-				fighter = new Fighter(rnd.nextInt(200)+500, rnd.nextInt(1000)+1000, Color.BLACK, Color.GRAY, true, true, true);
+				fighter = new Fighter(rnd.nextInt(200)+500, rnd.nextInt(1000)+1000, Color.BLACK, Color.GRAY, true, true, true, true, true);
 				panel = new PanelHungar(fighter);
 				panel.setBounds(20, 20, 700, 401);
 				frame.getContentPane().add(panel);
@@ -64,8 +63,23 @@ public class Main {
 				
 			}
 		});
-		button.setBounds(851, 10, 79, 24);
-		frame.getContentPane().add(button);
+		buttonFighter.setBounds(798, 10, 132, 24);
+		frame.getContentPane().add(buttonFighter);
+		
+		Button buttonPlane = new Button("Set plane");
+		buttonPlane.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Random rnd = new Random();
+				fighter = new Plane(rnd.nextInt(200)+300, rnd.nextInt(1000)+1000, Color.GREEN, true, true);
+				panel = new PanelHungar(fighter);
+				panel.setBounds(20, 20, 700, 401);
+				frame.getContentPane().add(panel);
+				fighter.SetPosition(rnd.nextInt(100)+50, rnd.nextInt(100)+50, panel.getWidth(), panel.getHeight());
+				panel.repaint();
+			}
+		});
+		buttonPlane.setBounds(798, 49, 132, 24);
+		frame.getContentPane().add(buttonPlane);
 		
 		buttonLeft = new JButton("");
 		buttonLeft.addActionListener(new ActionListener() {

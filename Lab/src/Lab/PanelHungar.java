@@ -6,9 +6,9 @@ import javax.swing.JPanel;
 
 public class PanelHungar extends JPanel {
 
-	Fighter fighter;
+	IAircraft fighter;
 
-	public PanelHungar(Fighter fighter2) {
+	public PanelHungar(IAircraft fighter2) {
 		fighter=fighter2;
 	}
 
