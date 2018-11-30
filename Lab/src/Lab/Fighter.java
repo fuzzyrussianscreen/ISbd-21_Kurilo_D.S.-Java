@@ -30,11 +30,11 @@ public class Fighter {
 	/// <summary>
 	/// Ширина отрисовки 
 	/// </summary>
-	private final int carWidth = 100;
+	private final int fighterWidth = 100;
 	/// <summary>
 	/// Ширина отрисовки 
 	/// </summary>
-	private final int carHeight = 60;
+	private final int fighterHeight = 60;
 
 	private int MaxSpeed;
 	void getMaxSpeed(int MaxSpeed) {this.MaxSpeed=MaxSpeed;}
@@ -52,28 +52,28 @@ public class Fighter {
 	void getDopColor(Color DopColor) {this.DopColor=DopColor;}
 	Color setDopColorr() {return this.DopColor;}
 
-	private boolean FrontWing;
-	void getFrontWing(boolean FrontWing) {this.FrontWing=FrontWing;}
-	boolean setFrontWingt() {return this.FrontWing;}
+	private boolean FrontWind;
+	void getFrontWind(boolean FrontWind) {this.FrontWind=FrontWind;}
+	boolean setFrontWindt() {return this.FrontWind;}
 
-	private boolean MiddleWing;
-	void getMiddleWing(boolean MiddleWing) {this.MiddleWing=MiddleWing;}
-	boolean setMiddleWingt() {return this.MiddleWing;}
+	private boolean MiddleWind;
+	void getMiddleWind(boolean MiddleWind) {this.MiddleWind=MiddleWind;}
+	boolean setMiddleWindt() {return this.MiddleWind;}
 
-	private boolean BackWing;
-	void getBackWing(boolean BackWing) {this.BackWing=BackWing;}
-	boolean setBackWing() {return this.BackWing;}
+	private boolean BackWind;
+	void getBackWind(boolean BackWind) {this.BackWind=BackWind;}
+	boolean setBackWind() {return this.BackWind;}
 
 	public Fighter(int maxSpeed, int weight, Color mainColor, Color dopColor, boolean
-			frontWing, boolean middleWing, boolean backWing)
+			frontWind, boolean middleWind, boolean backWind)
 	{
 		MaxSpeed = maxSpeed;
 		Weight = weight;
 		MainColor = mainColor;
 		DopColor = dopColor;
-		MiddleWing = middleWing;
-		FrontWing = frontWing;
-		BackWing = backWing;
+		MiddleWind = middleWind;
+		FrontWind = frontWind;
+		BackWind = backWind;
 	}
 	
 	public void SetPosition(int x, int y, int width, int height)
@@ -91,7 +91,7 @@ public class Fighter {
 		{
 		// вправо
 		case Right:
-			if (_startPosX + step < _pictureWidth - carWidth)
+			if (_startPosX + step < _pictureWidth - fighterWidth)
 			{
 				_startPosX += step;
 			}
@@ -112,7 +112,7 @@ public class Fighter {
 			break;
 			//вниз
 		case Down:
-			if (_startPosY + step < _pictureHeight - carHeight)
+			if (_startPosY + step < _pictureHeight - fighterHeight)
 			{
 				_startPosY += step;
 			}
@@ -132,7 +132,7 @@ public class Fighter {
 		BasicStroke bs = new BasicStroke(8, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 3, shtrich, 0);
 		g.setStroke(bs);
 
-		if (BackWing)
+		if (BackWind)
 		{
 			g.setColor(MainColor);
 			g.drawLine( _startPosX + 31, _startPosY - 24, _startPosX + 31, _startPosY + 24);
@@ -142,7 +142,7 @@ public class Fighter {
 			g.drawLine( _startPosX + 4, _startPosY + 5, _startPosX, _startPosY + 20);
 			g.drawLine( _startPosX + 14, _startPosY + 5, _startPosX, _startPosY + 20);
 		}
-		if (MiddleWing)
+		if (MiddleWind)
 		{
 			g.setColor(DopColor);
 			g.drawLine( _startPosX + 24, _startPosY - 5, _startPosX + 22, _startPosY - 50);
@@ -158,7 +158,7 @@ public class Fighter {
 		g.setColor(MainColor);
 		g.drawLine( _startPosX + 79, _startPosY - 3, _startPosX + 100, _startPosY);
 		g.drawLine( _startPosX + 79, _startPosY + 3, _startPosX + 100, _startPosY);
-		if (FrontWing)
+		if (FrontWind)
 		{
 			g.setColor(DopColor);
 			g.drawLine( _startPosX + 100, _startPosY, _startPosX + 110, _startPosY);
