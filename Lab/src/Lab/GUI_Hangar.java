@@ -17,6 +17,7 @@ import javax.swing.JColorChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
@@ -24,9 +25,23 @@ import javax.swing.ListSelectionModel;
 public class GUI_Hangar {
 	private MultiLevelHangar hangar;
 	private final int countLevel = 3;
+	private GUI_Hangar_Config select;
+	private JFrame frame;
+	private JList list;
+	
+	public void getFighter() {
+		select = new GUI_Hangar_Config(frame);
+		if (select.res()) {
+			IAircraft fighter = select.fighter;
+			int place = hangar.get(list.getSelectedIndex()).addFighter(fighter);
+			if (place < 0) {
+				JOptionPane.showMessageDialog(null, "No free place");
+			}
+		}
+	}
 	
 	GUI_Hangar() {
-		JFrame frame = new JFrame();
+		frame = new JFrame();
 		frame.setBounds(100, 100, 1317, 637);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
@@ -67,7 +82,7 @@ public class GUI_Hangar {
 		for (int i = 1; i <= countLevel; i++) {
 			listModel.addElement("Уровень " + i);
 		}
-		JList list = new JList(listModel);
+		list = new JList(listModel);
 		list.setBounds(1100, 160, 132, 107);
 		frame.getContentPane().add(list);
 		list.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
@@ -92,24 +107,9 @@ public class GUI_Hangar {
 		});
 		buttonTake.setBounds(11, 80, 120, 30);
 		panelMain.add(buttonTake);
-
-		JButton buttonParkPlane = new JButton("Plane");
-		buttonParkPlane.addActionListener(e -> {
-			Color mainColor = JColorChooser.showDialog(null, "Choose a color", Color.GRAY);
-			IAircraft fighter = new Plane(300, 1000, mainColor, true, true);
-			hangar.get(list.getSelectedIndex()).addFighter(fighter);
-			panelHangar.repaint();
-		});
-		buttonParkPlane.setLayout(null);
-		buttonParkPlane.setBounds(1183, 68, 107, 36);
-		frame.getContentPane().add(buttonParkPlane);
-
 		JButton buttonParkSportPlane = new JButton("Fighter");
 		buttonParkSportPlane.addActionListener(e -> {
-            Color mainColor = JColorChooser.showDialog(null, "Choose a color", Color.GRAY);
-			Color dopColor = JColorChooser.showDialog(null, "Choose a dopcolor", Color.GRAY);
-			IAircraft fighter = new Fighter(600, 1000, mainColor, dopColor, true, true, true, true, true);
-			hangar.get(list.getSelectedIndex()).addFighter(fighter);
+			getFighter();
 			panelHangar.repaint();
 		});
 		buttonParkSportPlane.setLayout(null);

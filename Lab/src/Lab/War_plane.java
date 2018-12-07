@@ -44,4 +44,8 @@ public abstract class War_plane implements IAircraft{
 	
 	public abstract void MoveTransport(Direction direction);
 	
+	public void SetMainColor(Color color)
+    {
+        MainColor = color;
+    }
 }

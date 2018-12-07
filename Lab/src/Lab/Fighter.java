@@ -112,4 +112,8 @@ public class Fighter extends Plane {
 		}
 	}
 	
+	public void SetDopColor(Color color)
+    {
+        DopColor = color;
+    }
 }
