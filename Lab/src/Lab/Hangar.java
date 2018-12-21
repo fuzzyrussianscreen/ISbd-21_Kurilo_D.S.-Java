@@ -33,6 +33,9 @@ public class Hangar<T extends IAircraft> {
 	}
 	public int addFighter(T fighter)
 	{
+		if (_places.size() == _maxCount) {
+            return -1;
+        }
 		for (int i = 0; i < _maxCount; i++)
 		{
 			if (CheckFreePlace(i))
@@ -54,7 +57,7 @@ public class Hangar<T extends IAircraft> {
 		if (!CheckFreePlace(index))
 		{
 			T fighter = _places.get(index);
-			_places.remove(index, null);
+			_places.remove(index);
 			return fighter;
 		}
 		return null;
