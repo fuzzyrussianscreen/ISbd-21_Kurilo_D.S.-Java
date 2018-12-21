@@ -27,6 +27,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import org.apache.log4j.Logger;
 
 public class GUI_Hangar {
 	private MultiLevelHangar hangar;
@@ -34,18 +35,19 @@ public class GUI_Hangar {
 	private GUI_Hangar_Config select;
 	private JFrame frame;
 	private JList list;
-	
-	public void getFighter() {
+
+	private Logger logger = Log.getlogger();
+
+	public void getFighter() throws HangarOverflowException {
 		select = new GUI_Hangar_Config(frame);
 		if (select.res()) {
 			IAircraft fighter = select.fighter;
 			int place = hangar.get(list.getSelectedIndex()).addFighter(fighter);
-			if (place < 0) {
-				JOptionPane.showMessageDialog(null, "No free place");
-			}
+			logger.info("Добавлен истребитель " + fighter.getInfo() + " на место " + place);
+
 		}
 	}
-	
+
 	GUI_Hangar() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 1317, 637);
@@ -102,11 +104,16 @@ public class GUI_Hangar {
 		buttonTake.addActionListener(e -> {
 			int planePosition = Integer.parseInt(textField.getText());
 			IAircraft fighter;
-			if ((fighter = hangar.get(list.getSelectedIndex()).removeFighter(planePosition)) != null) {
-				fighter.SetPosition(0, 60, panelTakeFighter.getWidth(), panelTakeFighter.getHeight());
-				panelTakeFighter.setAircraft(fighter);
-			} else {
-				panelTakeFighter.setAircraft(null);
+			try {
+				if ((fighter = hangar.get(list.getSelectedIndex()).removeFighter(planePosition)) != null) {
+					fighter.SetPosition(0, 60, panelTakeFighter.getWidth(), panelTakeFighter.getHeight());
+					panelTakeFighter.setAircraft(fighter);
+				} else {
+					panelTakeFighter.setAircraft(null);
+				}
+			} catch (HangarNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
 			}
 			panelTakeFighter.repaint();
 			panelHangar.repaint();
@@ -115,7 +122,12 @@ public class GUI_Hangar {
 		panelMain.add(buttonTake);
 		JButton buttonParkSportPlane = new JButton("Fighter");
 		buttonParkSportPlane.addActionListener(e -> {
-			getFighter();
+			try {
+				getFighter();
+			} catch (HangarOverflowException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			panelHangar.repaint();
 		});
 		buttonParkSportPlane.setLayout(null);
@@ -123,9 +135,9 @@ public class GUI_Hangar {
 		frame.getContentPane().add(buttonParkSportPlane);
 		JMenuBar menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);
- 		JMenu menuFile = new JMenu("File");
+		JMenu menuFile = new JMenu("File");
 		menuBar.add(menuFile);
- 		JMenuItem menuSave = new JMenuItem("Save");
+		JMenuItem menuSave = new JMenuItem("Save");
 		menuSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				JFileChooser filesave = new JFileChooser();
@@ -144,7 +156,7 @@ public class GUI_Hangar {
 			}
 		});
 		menuFile.add(menuSave);
- 		JMenuItem menuLoad = new JMenuItem("Load");
+		JMenuItem menuLoad = new JMenuItem("Load");
 		menuLoad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				JFileChooser fileChooser = new JFileChooser();
@@ -155,6 +167,7 @@ public class GUI_Hangar {
 					try {
 						if (hangar.load(file.getAbsolutePath())) {
 							JOptionPane.showMessageDialog(null, "Loaded");
+							logger.info("Загружено из файла " + file);
 						} else {
 							JOptionPane.showMessageDialog(null, "Load failed", "", 0, null);
 						}
@@ -167,7 +180,7 @@ public class GUI_Hangar {
 			}
 		});
 		menuFile.add(menuLoad);
-		
+
 		frame.setVisible(true);
 	}
 }
