@@ -9,18 +9,24 @@ import java.awt.EventQueue;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.Random;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class GUI_Hangar {
 	private MultiLevelHangar hangar;
@@ -115,6 +121,53 @@ public class GUI_Hangar {
 		buttonParkSportPlane.setLayout(null);
 		buttonParkSportPlane.setBounds(	1183, 26, 107, 36);
 		frame.getContentPane().add(buttonParkSportPlane);
+		JMenuBar menuBar = new JMenuBar();
+		frame.setJMenuBar(menuBar);
+ 		JMenu menuFile = new JMenu("File");
+		menuBar.add(menuFile);
+ 		JMenuItem menuSave = new JMenuItem("Save");
+		menuSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JFileChooser filesave = new JFileChooser();
+				FileNameExtensionFilter filter = new FileNameExtensionFilter("txt file", "txt");
+				filesave.setFileFilter(filter);
+				if (filesave.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
+					File file = filesave.getSelectedFile();
+					String path = file.getAbsolutePath()+".txt";
+					if (hangar.SaveData(path)) {
+						JOptionPane.showMessageDialog(null, "Saved");
+						return;
+					} else {
+						JOptionPane.showMessageDialog(null, "Save failed", "", 0, null);
+					}
+				}
+			}
+		});
+		menuFile.add(menuSave);
+ 		JMenuItem menuLoad = new JMenuItem("Load");
+		menuLoad.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JFileChooser fileChooser = new JFileChooser();
+				FileNameExtensionFilter filter = new FileNameExtensionFilter("txt file", "txt");
+				fileChooser.setFileFilter(filter);
+				if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+					File file = fileChooser.getSelectedFile();
+					try {
+						if (hangar.load(file.getAbsolutePath())) {
+							JOptionPane.showMessageDialog(null, "Loaded");
+						} else {
+							JOptionPane.showMessageDialog(null, "Load failed", "", 0, null);
+						}
+					} catch (Exception ex) {
+						JOptionPane.showMessageDialog(null, ex.getMessage(), "", 0, null);
+					}
+				}
+				panelHangar.setHangar(hangar.get(list.getSelectedIndex()));
+				panelHangar.repaint();
+			}
+		});
+		menuFile.add(menuLoad);
+		
 		frame.setVisible(true);
 	}
 }

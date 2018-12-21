@@ -65,6 +65,15 @@ public class Hangar<T extends IAircraft> {
 	{
 		return !_places.containsKey(index);
 	}
+	
+	public T getFighter(int index) {
+		if (_places.get(index) != null) {
+			return _places.get(index);
+		} else {
+			return null;
+		}
+	}
+	
 	public void DrawHangar(Graphics g)
 	{
 		DrawMarking(g);

@@ -40,6 +40,21 @@ public class Fighter extends Plane {
 		Signs2 = signs2;
 	}
 	
+	public Fighter(String info) {
+		super(info);
+		String[] str = info.split(";");
+		if (str.length == 12) {
+			MaxSpeed = Integer.parseInt(str[0]);
+			Weight = Float.parseFloat(str[1]);
+			MainColor = new Color(Integer.parseInt(str[2]), Integer.parseInt(str[3]), Integer.parseInt(str[4]));
+			DopColor = new Color(Integer.parseInt(str[5]), Integer.parseInt(str[6]), Integer.parseInt(str[7]));
+			MiddleWild = Boolean.parseBoolean(str[8]);
+			Backwild = Boolean.parseBoolean(str[9]);
+			Signs = Boolean.parseBoolean(str[10]);
+			Signs2 = Boolean.parseBoolean(str[11]);
+		}
+	}
+	
 	public void SetPosition(int x, int y, int width, int height)
 	{
 		_startPosX = x;
@@ -116,4 +131,10 @@ public class Fighter extends Plane {
     {
         DopColor = color;
     }
+	
+	public String getInfo() {
+		return MaxSpeed + ";" + Weight + ";" + MainColor.getRed() + ";" + MainColor.getGreen() + ";" + MainColor.getBlue() + ";" 
+				+ DopColor.getRed() + ";" + DopColor.getGreen() + ";"+ DopColor.getBlue() + ";" 
+				+ MiddleWild + ";" + Backwild + ";" + Signs + ";" + Signs2;
+	}
 }
