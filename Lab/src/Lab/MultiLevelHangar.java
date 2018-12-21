@@ -40,7 +40,7 @@ public class MultiLevelHangar {
 		}
 		return null;
 	}
-	
+
 	public boolean SaveData(String filename) {
 		File file = new File(filename);
 		if (file.exists())
@@ -83,7 +83,7 @@ public class MultiLevelHangar {
 			return false;
 		}
 	}
-	
+
 	public boolean load(String filename) {
 		File file = new File(filename);
 		if (!file.exists()) {
@@ -117,15 +117,28 @@ public class MultiLevelHangar {
 						hangarStages.add(new Hangar<IAircraft>(countPlaces, pictureWidth, pictureHeight));
 					} else if (strs[i].startsWith("Plane")) {
 						IAircraft fighter = new Plane(strs[i].split(":")[1]);
-						int number = hangarStages.get(counter).addFighter(fighter);
-						if (number == -1) {
-							return false;
+
+						int number;
+						try {
+							number= hangarStages.get(counter).addFighter(fighter);
+							if (number == -1) {
+								return false;
+							}
+						}catch (HangarOverflowException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
 						}
 					} else if (strs[i].startsWith("Fighter")) {
 						IAircraft fighter = new Fighter(strs[i].split(":")[1]);
-						int number = hangarStages.get(counter).addFighter(fighter);
+						int number;
+						try {
+							number= hangarStages.get(counter).addFighter(fighter);
 						if (number == -1) {
 							return false;
+						}
+						} catch (HangarOverflowException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
 						}
 					}
 				}
