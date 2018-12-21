@@ -29,7 +29,6 @@ public class Hangar<T extends IAircraft> {
 		_places = new HashMap<Integer, T>();
 		PictureWidth = pictureWidth;
 		PictureHeight = pictureHeight;
-		
 	}
 	public int addFighter(T fighter)
 	{
