@@ -13,11 +13,11 @@ public class Plane extends War_plane {
 	protected  int planeWidth = 100;
 	protected  int planeHeight = 60;
 
-	protected boolean MiddleWild;
+	public boolean MiddleWild;
 	void getMiddleWild(boolean MiddleWild) {this.MiddleWild=MiddleWild;}
 	boolean setMiddleWildt() {return this.MiddleWild;}
 
-	protected boolean Backwild;
+	public boolean Backwild;
 	void getBackWild(boolean BackWild) {this.Backwild=BackWild;}
 	boolean setBackWild() {return this.Backwild;}
 
@@ -28,6 +28,17 @@ public class Plane extends War_plane {
 		MainColor = mainColor;
 		MiddleWild = middleWild;
 		Backwild = backWild;
+	}
+	
+	public Plane(String info) {
+		String[] str = info.split(";");
+		if (str.length == 7) {
+			MaxSpeed = Integer.parseInt(str[0]);
+			Weight = Float.parseFloat(str[1]);
+			MainColor = new Color(Integer.parseInt(str[2]), Integer.parseInt(str[3]), Integer.parseInt(str[4]));
+			MiddleWild = Boolean.parseBoolean(str[5]);
+			Backwild = Boolean.parseBoolean(str[6]);
+		} 
 	}
 
 	@Override
@@ -108,4 +119,10 @@ public class Plane extends War_plane {
 	public void SetMainColor(Color color) {
         MainColor = color;
     }
+	
+	@Override
+	public String getInfo() {
+		return MaxSpeed + ";" + Weight + ";" + MainColor.getRed() + ";" + MainColor.getGreen() + ";" + MainColor.getBlue()+ ";" 
+	+ MiddleWild+ ";" + Backwild;
+	}
 }

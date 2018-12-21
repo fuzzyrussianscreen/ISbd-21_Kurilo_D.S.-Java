@@ -8,4 +8,5 @@ public interface IAircraft {
     void MoveTransport(Direction direction);
     void DrawFighter(Graphics g);
     void SetMainColor(Color color);
+    String getInfo();
 }

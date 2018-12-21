@@ -48,4 +48,6 @@ public abstract class War_plane implements IAircraft{
     {
         MainColor = color;
     }
+
+	public abstract String getInfo();
 }
