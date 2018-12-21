@@ -6,11 +6,12 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Stroke;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Hangar<T extends IAircraft> {
 
-	public ArrayList<T> _places;
-	
+	public HashMap<Integer, T> _places;
+	public int _maxCount;
 	protected int PictureWidth;
 	void getPictureWidth(int PictureWidth) {this.PictureWidth=PictureWidth;}
 	int setPictureWidth() {return this.PictureWidth;}
@@ -24,21 +25,19 @@ public class Hangar<T extends IAircraft> {
 	
 	public Hangar(int sizes, int pictureWidth, int pictureHeight)
 	{
-		_places = new ArrayList<T>();
+		_maxCount = sizes;
+		_places = new HashMap<Integer, T>();
 		PictureWidth = pictureWidth;
 		PictureHeight = pictureHeight;
-		for (int i = 0; i < sizes; i++)
-		{
-			_places.add(null);
-		}
+		
 	}
 	public int addFighter(T fighter)
 	{
-		for (int i = 0; i < _places.size(); i++)
+		for (int i = 0; i < _maxCount; i++)
 		{
 			if (CheckFreePlace(i))
 			{
-				_places.add(i,fighter);
+				_places.put(i,fighter);
 				_places.get(i).SetPosition(5 + i / 4 * _placeSizeWidth + 5, i % 4 * _placeSizeHeight + 60, PictureWidth, PictureHeight);
 				return i;
 			}
@@ -55,14 +54,14 @@ public class Hangar<T extends IAircraft> {
 		if (!CheckFreePlace(index))
 		{
 			T fighter = _places.get(index);
-			_places.set(index, null);
+			_places.remove(index, null);
 			return fighter;
 		}
 		return null;
 	}
 	private boolean CheckFreePlace(int index)
 	{
-		return _places.get(index) == null;
+		return !_places.containsKey(index);
 	}
 	public void DrawHangar(Graphics g)
 	{
