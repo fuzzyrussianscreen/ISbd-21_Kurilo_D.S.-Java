@@ -104,5 +104,8 @@ public class Plane extends War_plane {
 		
 		g.drawLine( _startPosX + 100, _startPosY, _startPosX + 110, _startPosY);
 	}
-
+	
+	public void SetMainColor(Color color) {
+        MainColor = color;
+    }
 }
